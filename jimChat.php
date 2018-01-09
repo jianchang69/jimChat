@@ -50,7 +50,7 @@
  fclose($myfile);
  //回傳給line server
  $header[] = "Content-Type: application/json";
- $header[] = "Authorization: Bearer n4mZIQp9UqWXhCEgIg1fLmyjUeDMgCe/bF+4EOBDZ7fGscOgNGFsHTr3fGco/E7A5hq7A7jiDszSCk/j3pVVPbx7nf0E+FKe5jX6syQGOxO7kwp5lmZ3zRES1qxceq/N+/E9Qy5gSDbBx56l8sScTwdB04t89/1O/w1cDnyilFU=";
+ $header[] = "Authorization: Bearer wyGU1opywp0aPZyblMrrL0YqEQORvRo4nMLZ6zBik4/N/rNq82GNkMXwEiLQen8K5necg+t0VnztXT0rtn78E4WH3Di77q9Y3CivEjh6+P9wjd7ex13lQhIGTkoNP48kKUzMhCHHruRR5GrpWQt54wdB04t89/1O/w1cDnyilFU=";
  $ch = curl_init($line_server_url);                                                                      
  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
  curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($response));                                                                  
