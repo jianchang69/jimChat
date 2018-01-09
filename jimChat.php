@@ -103,18 +103,20 @@
 				);
         		break;
 				
-	 	default:
-		 	$line_server_url = 'https://api.line.me/v2/bot/message/reply';
-        		$response = array (
-				"replyToken" => $sender_replyToken,
-				"messages" => array (
-					array (
-						"type" => "text",
-						"text" => "你竟然說: ".$sender_txt
-					)
-				)
-			);
-        		break;
+	 	default:				
+				$objID = $json_obj->events[0]->message->id;
+				$url = 'https://api.line.me/v2/bot/message/'.$objID.'/content';
+				$ch = curl_init($url);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+	'Authorization: Bearer wyGU1opywp0aPZyblMrrL0YqEQORvRo4nMLZ6zBik4/N/rNq82GNkMXwEiLQen8K5necg+t0VnztXT0rtn78E4WH3Di77q9Y3CivEjh6+P9wjd7ex13lQhIGTkoNP48kKUzMhCHHruRR5GrpWQt54wdB04t89/1O/w1cDnyilFU=',
+				));
+					
+				$json_content = curl_exec($ch);
+				curl_close($ch);
+				$imagefile = fopen($objID.".jpeg", "w+") or die("Unable to open file!"); //設定一個log.txt，用來印訊息
+				fwrite($imagefile, $json_content); 
+				fclose($imagefile);
  }
  $myfile = fopen("log.txt","w+") or die("Unable to open file!"); //設定一個log.txt 用來印訊息
  fwrite($myfile, "\xEF\xBB\xBF".$json_str); //在字串前加入\xEF\xBB\xBF轉成utf8格式
