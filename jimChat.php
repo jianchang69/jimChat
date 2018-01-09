@@ -72,19 +72,8 @@
 				)
 			);
         		break;
-				 default:
-		 	$line_server_url = 'https://api.line.me/v2/bot/message/reply';
-        		$response = array (
-				"replyToken" => $sender_replyToken,
-				"messages" => array (
-					array (
-						"type" => "text",
-						"text" => "你竟然說: ".$sender_txt
-					)
-				)
-			);
-        		break;
-	 default:
+				
+	 	default:
 		 	$line_server_url = 'https://api.line.me/v2/bot/message/reply';
         		$response = array (
 				"replyToken" => $sender_replyToken,
