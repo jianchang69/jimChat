@@ -104,8 +104,8 @@
         		break;
 				
 	 	default:				
-				default:				
-				$objID = $json_obj->events[0]->message->id;
+						
+			$objID = $json_obj->events[0]->message->id;
 			$url = 'https://api.line.me/v2/bot/message/'.$objID.'/content';
 			$ch = curl_init($url);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
