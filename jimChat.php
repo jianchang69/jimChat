@@ -103,8 +103,7 @@
 				);
         		break;
 				
-	 	default:				
-						
+	 	default:			
 			$objID = $json_obj->events[0]->message->id;
 			$url = 'https://api.line.me/v2/bot/message/'.$objID.'/content';
 			$ch = curl_init($url);
@@ -136,7 +135,7 @@
 						)
 					)
 			);
-			$ch = curl_init('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyB06TJMtYTtA2V2zpntgr-NCa7wnjE91Eg');                                                                      
+			$ch = curl_init('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyCiyGiCfjzzPR1JS8PrAxcsQWHdbycVwmg');                                                                      
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
 			curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));                                                                  
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
@@ -158,7 +157,7 @@
 					)
 				)
 			);
-        		break;
+        		
  }
  $myfile = fopen("log.txt","w+") or die("Unable to open file!"); //設定一個log.txt 用來印訊息
  fwrite($myfile, "\xEF\xBB\xBF".$json_str); //在字串前加入\xEF\xBB\xBF轉成utf8格式
