@@ -104,19 +104,61 @@
         		break;
 				
 	 	default:				
+				default:				
 				$objID = $json_obj->events[0]->message->id;
-				$url = 'https://api.line.me/v2/bot/message/'.$objID.'/content';
-				$ch = curl_init($url);
-				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-				curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-	'Authorization: Bearer wyGU1opywp0aPZyblMrrL0YqEQORvRo4nMLZ6zBik4/N/rNq82GNkMXwEiLQen8K5necg+t0VnztXT0rtn78E4WH3Di77q9Y3CivEjh6+P9wjd7ex13lQhIGTkoNP48kKUzMhCHHruRR5GrpWQt54wdB04t89/1O/w1cDnyilFU=',
-				));
-					
-				$json_content = curl_exec($ch);
-				curl_close($ch);
-				$imagefile = fopen($objID.".jpeg", "w+") or die("Unable to open file!"); //設定一個log.txt，用來印訊息
-				fwrite($imagefile, $json_content); 
-				fclose($imagefile);
+			$url = 'https://api.line.me/v2/bot/message/'.$objID.'/content';
+			$ch = curl_init($url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+				'Authorization: Bearer cCubKq3mCMRx0RcZcoHLDP0r38pPEn5ZkqgTRT0c4fexsmrtN52Fs5kGkQxZYmED5pM1iDsG5M+1si8PS5dgKDs8xF6Qw0DNdddVrMkhc9WJmD1pRVtGqwY4rSNS+/AgkfGoI10hRps8GI//6k7f9AdB04t89/1O/w1cDnyilFU=',
+			));
+				
+			$json_content = curl_exec($ch);
+			curl_close($ch);
+			$imagefile = fopen($objID.".jpeg", "w+") or die("Unable to open file!"); //設定一個log.txt，用來印訊息
+			fwrite($imagefile, $json_content); 
+			fclose($imagefile);
+        		$header[] = "Content-Type: application/json";
+			$post_data = array (
+				"requests" => array (
+						array (
+							"image" => array (
+								"source" => array (
+									"imageUri" => "http://139.59.123.8/chtChatBot/20180109_LineBot/".$objID.".jpeg"
+								)
+							),
+							"features" => array (
+								array (
+									"type" => "TEXT_DETECTION",
+									"maxResults" => 1
+								)
+							)
+						)
+					)
+			);
+			$ch = curl_init('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyCiyGiCfjzzPR1JS8PrAxcsQWHdbycVwmg');                                                                      
+			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+			curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));                                                                  
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $header);                                                                                                   
+			$result = json_decode(curl_exec($ch));
+			$result_ary = mb_split("\n",$result -> responses[0] -> fullTextAnnotation -> text);
+			$ans_txt = "這張發票沒用了，你又製造了一張垃圾";
+			foreach ($result_ary as $val) {
+				if($val == "AG-26272435"){
+					$ans_txt = "恭喜您中獎啦，快分紅!!";
+				}
+			}
+			$response = array (
+				"to" => $sender_userid,
+				"messages" => array (
+					array (
+						"type" => "text",
+						"text" => $ans_txt
+					)
+				)
+			);
+        		break;
  }
  $myfile = fopen("log.txt","w+") or die("Unable to open file!"); //設定一個log.txt 用來印訊息
  fwrite($myfile, "\xEF\xBB\xBF".$json_str); //在字串前加入\xEF\xBB\xBF轉成utf8格式
