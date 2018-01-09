@@ -124,7 +124,7 @@
 						array (
 							"image" => array (
 								"source" => array (
-									"imageUri" => "http://139.59.123.8/chtChatBot/20180109_LineBot/".$objID.".jpeg"
+									"imageUri" => "http://139.59.123.8/chtChatBot/jimChat/".$objID.".jpeg"
 								)
 							),
 							"features" => array (
@@ -146,7 +146,7 @@
 			$ans_txt = "這張發票沒用了，你又製造了一張垃圾";
 			foreach ($result_ary as $val) {
 				if($val == "AG-26272435"){
-					$ans_txt = "恭喜您中獎啦，快分紅!!";
+					$ans_txt = "恭喜您中獎啦，快分紅!!".;
 				}
 			}
 			$response = array (
